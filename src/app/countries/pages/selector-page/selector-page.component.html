@@ -3,12 +3,51 @@
 
 <form [formGroup]="myForm">
   <!-- Region -->
-
   <div class="row mb-3">
     <div class="col">
       <label class="form-label">Continente</label>
-      <select class="form-control"></select>
-      <option value="">>-- Seleccion Continente --<</option>
+      <select formControlName="region" class="form-control">
+        <option value="">>-- Seleccion Continente --<</option>
+        <option *ngFor="let region of regions" [value]="region">
+          {{ region }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- País -->
+  <!-- *ngIf="countriesByRegion.length > 0" -->
+  <div class="row mb-3" *ngIf="countriesByRegion.length > 0">
+    <div class="col">
+      <label class="form-label">País</label>
+      <select formControlName="country" class="form-control">
+        <option value="">>-- Seleccion País --<</option>
+        <option
+          *ngFor="let country of countriesByRegion"
+          [value]="country.cca3"
+        >
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Border -->
+  <div class="row mb-3" *ngIf="borders.length > 0">
+    <div class="col">
+      <label class="form-label">Fronteras</label>
+      <select formControlName="border" class="form-control">
+        <option value="">>-- Seleccione la frontera --<</option>
+        <option *ngFor="let country of borders" [value]="country.cca3">
+          {{ country.name }}
+        </option>
+      </select>
     </div>
   </div>
 </form>
+
+<h3>Formulario</h3>
+<code>
+  {{ myForm.value | json }}
+</code>
+<p>is form valid: {{ myForm.valid }}</p>
